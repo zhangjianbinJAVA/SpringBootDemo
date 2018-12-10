@@ -3,15 +3,17 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
+
     <!--加载配置文件，为下面读取数据库信息准备-->
     <properties resource="application.properties"/>
 
     <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
 
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-            <property name="mappers" value="com.dudu.util.MyMapper" />
-            <!--caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true-->
-          <property name="caseSensitive" value="true"/>
+            <!-- 自定义通用 mapper 接口-->
+            <property name="mappers" value="com.dudu.util.MyMapper"/>
+            <!-- caseSensitive 默认false，当数据库表名区分大小写时，可以将该属性设置为true-->
+            <property name="caseSensitive" value="true"/>
         </plugin>
 
         <!-- 阻止生成自动注释 -->
@@ -48,14 +50,17 @@
                 type="ANNOTATEDMAPPER",生成Java Model 和基于注解的Mapper对象
                 type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
         -->
-       <javaClientGenerator type="XMLMAPPER" targetPackage="com.dudu.dao" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.dudu.dao" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
-       </javaClientGenerator>
+        </javaClientGenerator>
 
         <!--生成对应表及类名
-        去掉Mybatis Generator生成的一堆 example
+
+            去掉Mybatis Generator生成的一堆 example
         -->
-        <table tableName="LEARN_RESOURCE" domainObjectName="LearnResource" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        <table tableName="LEARN_RESOURCE" domainObjectName="LearnResource" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
     </context>

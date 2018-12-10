@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 分页工具类
+ * 前台传的分页参数 分页工具类
+ *
  * @param <T>
  */
 public class Page<T> implements Serializable {

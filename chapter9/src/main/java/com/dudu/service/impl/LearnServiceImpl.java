@@ -18,6 +18,7 @@ public class LearnServiceImpl implements LearnService {
 
     @Autowired
     LearnMapper learnMapper;
+
     @Override
     public int add(LearnResouce learnResouce) {
         return this.learnMapper.add(learnResouce);
@@ -39,7 +40,7 @@ public class LearnServiceImpl implements LearnService {
     }
 
     @Override
-    public List<LearnResouce> queryLearnResouceList(Map<String,Object> params) {
+    public List<LearnResouce> queryLearnResouceList(Map<String, Object> params) {
         PageHelper.startPage(Integer.parseInt(params.get("page").toString()), Integer.parseInt(params.get("rows").toString()));
         return this.learnMapper.queryLearnResouceList(params);
     }

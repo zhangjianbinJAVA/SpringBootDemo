@@ -16,20 +16,27 @@ public class MyWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
 
     /**
      * 配置静态访问资源
+     *
+     * addResourceLocations指的是文件放置的目录，
+     * addResoureHandler指的是对外暴露的访问路径
+     *
      * @param registry
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //自定义项目内目录
-        //registry.addResourceHandler("/my/**").addResourceLocations("classpath:/my/");
+        registry.addResourceHandler("/my/**").addResourceLocations("classpath:/my/");
         //指向外部目录
-        registry.addResourceHandler("/my/**").addResourceLocations("file:E:/my/");
+        //registry.addResourceHandler("/my/**").addResourceLocations("file:E:/my/");
+
         super.addResourceHandlers(registry);
     }
 
     /**
      * 以前要访问一个页面需要先创建个Controller控制类，在写方法跳转到页面
-     * 在这里配置后就不需要那么麻烦了，直接访问http://localhost:8080/toLogin就跳转到login.html页面了
+     * 在这里配置后就不需要那么麻烦了，
+     *
+     * 直接访问http://localhost:8080/toLogin就跳转到login.html页面了
      *
      * @param registry
      */

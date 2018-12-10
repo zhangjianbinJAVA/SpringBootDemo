@@ -21,15 +21,14 @@ import java.util.Map;
  * Created by tengj on 2017/4/7.
  */
 @Service
-
-public class LearnServiceImpl extends BaseService<LearnResource>  implements LearnService {
+public class LearnServiceImpl extends BaseService<LearnResource> implements LearnService {
 
     @Autowired
-    private LearnResourceMapper  learnResourceMapper;
+    private LearnResourceMapper learnResourceMapper;
 
     @Override
     public void deleteBatch(Long[] ids) {
-        Arrays.stream(ids).forEach(id->learnResourceMapper.deleteByPrimaryKey(id));
+        Arrays.stream(ids).forEach(id -> learnResourceMapper.deleteByPrimaryKey(id));
     }
 
     @Override

@@ -7,5 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 public interface LearnResourceMapper extends MyMapper<LearnResource> {
-    List<LearnResource> queryLearnResouceList(Map<String,Object> map);
+
+    /**
+     * 自定义新增接口
+     *
+     * @param map
+     * @return
+     */
+    List<LearnResource> queryLearnResouceList(Map<String, Object> map);
 }

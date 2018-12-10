@@ -26,18 +26,21 @@ package com.dudu.service.impl;
 
 import com.dudu.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
 /**
- * 通用Service
+ * 通用Service 实现
+ *
  * @param <T>
  */
 public abstract class BaseService<T> implements IService<T> {
 
     @Autowired
     protected Mapper<T> mapper;
+
     public Mapper<T> getMapper() {
         return mapper;
     }
@@ -47,6 +50,7 @@ public abstract class BaseService<T> implements IService<T> {
         //说明：根据主键字段进行查询，方法参数必须包含完整的主键属性，查询条件使用等号
         return mapper.selectByPrimaryKey(key);
     }
+
 
     @Override
     public int save(T entity) {
@@ -75,7 +79,7 @@ public abstract class BaseService<T> implements IService<T> {
     @Override
     public List<T> selectByExample(Object example) {
         //说明：根据Example条件进行查询
-        //重点：这个查询支持通过Example类指定查询列，通过selectProperties方法指定查询列
+        //重点：这个查询支持通过Example类指定查询列，通过 selectProperties方法指定查询列
         return mapper.selectByExample(example);
     }
 }

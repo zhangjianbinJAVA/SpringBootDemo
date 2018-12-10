@@ -4,6 +4,7 @@ import com.dudu.domain.ConfigBean;
 import com.dudu.domain.ConfigTestBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Value("${com.dudu.name}")
-    private  String name;
+    private String name;
     @Value("${com.dudu.want}")
-    private  String want;
+    private String want;
 
     @Autowired
     ConfigBean configBean;
@@ -30,9 +31,14 @@ public class UserController {
 
 
     @RequestMapping("/")
-    public String hexo(){
+    public String hexo() {
         //return configBean.getName()+configBean.getWant();
         //return yearhope;
-        return configBean.getName()+configBean.getWant();
+        return configBean.getName() + configBean.getWant();
+    }
+
+    @GetMapping("/configbean")
+    public String configTestBean() {
+        return configTestBean.getName() + configTestBean.getWant();
     }
 }

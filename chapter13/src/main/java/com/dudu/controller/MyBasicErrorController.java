@@ -56,7 +56,7 @@ public class MyBasicErrorController extends BasicErrorController {
 
 
     /**
-     * 定义500的ModelAndView
+     * 定义404的ModelAndView
      * @param request
      * @param response
      * @return

@@ -1,6 +1,7 @@
 package com.dudu.domain;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Table(name = "learn_resource")
 public class LearnResource {
@@ -96,5 +97,31 @@ public class LearnResource {
      */
     public void setUrl(String url) {
         this.url = url == null ? null : url.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "LearnResource{" +
+                "id=" + id +
+                ", author='" + author + '\'' +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LearnResource that = (LearnResource) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(author, that.author) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(url, that.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, author, title, url);
     }
 }

@@ -67,9 +67,14 @@ public class DruidConfig {
     @Value("{spring.datasource.connectionProperties:#{null}}")
     private String connectionProperties;
 
+    /**
+     * Druid 连接池配置
+     *
+     * @return
+     */
     @Bean
     @Primary
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DruidDataSource datasource = new DruidDataSource();
 
         datasource.setUrl(this.dbUrl);
@@ -77,44 +82,44 @@ public class DruidConfig {
         datasource.setPassword(password);
         datasource.setDriverClassName(driverClassName);
         //configuration
-        if(initialSize != null) {
+        if (initialSize != null) {
             datasource.setInitialSize(initialSize);
         }
-        if(minIdle != null) {
+        if (minIdle != null) {
             datasource.setMinIdle(minIdle);
         }
-        if(maxActive != null) {
+        if (maxActive != null) {
             datasource.setMaxActive(maxActive);
         }
-        if(maxWait != null) {
+        if (maxWait != null) {
             datasource.setMaxWait(maxWait);
         }
-        if(timeBetweenEvictionRunsMillis != null) {
+        if (timeBetweenEvictionRunsMillis != null) {
             datasource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
         }
-        if(minEvictableIdleTimeMillis != null) {
+        if (minEvictableIdleTimeMillis != null) {
             datasource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
         }
-        if(validationQuery!=null) {
+        if (validationQuery != null) {
             datasource.setValidationQuery(validationQuery);
         }
-        if(testWhileIdle != null) {
+        if (testWhileIdle != null) {
             datasource.setTestWhileIdle(testWhileIdle);
         }
-        if(testOnBorrow != null) {
+        if (testOnBorrow != null) {
             datasource.setTestOnBorrow(testOnBorrow);
         }
-        if(testOnReturn != null) {
+        if (testOnReturn != null) {
             datasource.setTestOnReturn(testOnReturn);
         }
-        if(poolPreparedStatements != null) {
+        if (poolPreparedStatements != null) {
             datasource.setPoolPreparedStatements(poolPreparedStatements);
         }
-        if(maxPoolPreparedStatementPerConnectionSize != null) {
+        if (maxPoolPreparedStatementPerConnectionSize != null) {
             datasource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);
         }
 
-        if(connectionProperties != null) {
+        if (connectionProperties != null) {
             datasource.setConnectionProperties(connectionProperties);
         }
 
@@ -126,9 +131,15 @@ public class DruidConfig {
         return datasource;
     }
 
+    /**
+     * 注册 servlet
+     *
+     * @return
+     */
     @Bean
     public ServletRegistrationBean druidServlet() {
-        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
+        ServletRegistrationBean servletRegistrationBean =
+                new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
 
         //控制台管理用户，加入下面2行 进入druid后台就需要登录
         servletRegistrationBean.addInitParameter("loginUsername", "admin");
@@ -136,27 +147,36 @@ public class DruidConfig {
         return servletRegistrationBean;
     }
 
+    /**
+     * 注册 filter
+     *
+     * @return
+     */
     @Bean
     public FilterRegistrationBean filterRegistrationBean() {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(new WebStatFilter());
         filterRegistrationBean.addUrlPatterns("/*");
-        filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
+        filterRegistrationBean.addInitParameter("exclusions",
+                "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
         filterRegistrationBean.addInitParameter("profileEnable", "true");
         return filterRegistrationBean;
     }
 
     @Bean
-    public StatFilter statFilter(){
+    public StatFilter statFilter() {
         StatFilter statFilter = new StatFilter();
-        statFilter.setLogSlowSql(true); //slowSqlMillis用来配置SQL慢的标准，执行时间超过slowSqlMillis的就是慢。
-        statFilter.setMergeSql(true); //SQL合并配置
-        statFilter.setSlowSqlMillis(1000);//slowSqlMillis的缺省值为3000，也就是3秒。
+        //slowSqlMillis用来配置SQL慢的标准，执行时间超过slowSqlMillis的就是慢。
+        statFilter.setLogSlowSql(true);
+        //SQL合并配置
+        statFilter.setMergeSql(true);
+        //slowSqlMillis的缺省值为3000，也就是3秒。
+        statFilter.setSlowSqlMillis(1000);
         return statFilter;
     }
 
     @Bean
-    public WallFilter wallFilter(){
+    public WallFilter wallFilter() {
         WallFilter wallFilter = new WallFilter();
         //允许执行多条SQL
         WallConfig config = new WallConfig();
